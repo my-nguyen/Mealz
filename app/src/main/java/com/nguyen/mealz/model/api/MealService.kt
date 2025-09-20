@@ -1,7 +1,6 @@
 package com.nguyen.mealz.model.api
 
 import com.nguyen.mealz.model.network.Categories
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -17,12 +16,12 @@ class MealService {
         api = retrofit.create(API::class.java)
     }
 
-    fun getMeals(): Call<Categories> {
+    suspend fun getMeals(): Categories {
         return api.getMeals()
     }
 
     interface API {
         @GET("categories.php")
-        fun getMeals(): Call<Categories>
+        suspend fun getMeals(): Categories
     }
 }

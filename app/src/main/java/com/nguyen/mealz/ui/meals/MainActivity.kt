@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Categories() {
     val viewModel: CategoryViewModel = viewModel()
+    val meals = viewModel.getMeals()
     Text(text = "Hello Compose!")
 }
 

@@ -34,20 +34,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Categories() {
     val viewModel: CategoryViewModel = viewModel()
-    val meals = remember { mutableStateOf(listOf<Category>()) }
-    val coroutineScope = rememberCoroutineScope()
+    val meals = viewModel.meals.value
 
-    // LaunchedEffect is a Composable that allows things inside it be called only once, so that
-    // no matter how many times the Composable Categories() is recomposed, the enclosed methods are
-    // executed only once
-    LaunchedEffect(key1 = "GET_MEALS") {
-        coroutineScope.launch(Dispatchers.IO) {
-            val data = viewModel.getMeals()
-            meals.value = data
-        }
-    }
     LazyColumn {
-        items(meals.value) {
+        items(meals) {
             Text(text = it.name)
         }
     }

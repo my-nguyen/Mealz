@@ -6,6 +6,6 @@ import com.nguyen.mealz.model.network.Category
 
 class CategoryViewModel(private val repository: MealRepository = MealRepository()) : ViewModel() {
     fun getMeals(): List<Category> {
-        return repository.getMeals().categories
+        return repository.getMeals()?.categories.orEmpty()
     }
 }

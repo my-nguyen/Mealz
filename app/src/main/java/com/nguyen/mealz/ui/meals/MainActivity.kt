@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 fun Categories() {
     val viewModel: CategoryViewModel = viewModel()
     val meals = viewModel.getMeals()
-    Text(text = "Hello Compose!")
+    Text(text = meals.toString())
 }
 
 @Preview(showBackground = true)

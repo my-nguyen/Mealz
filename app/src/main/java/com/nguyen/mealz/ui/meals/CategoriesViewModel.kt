@@ -8,7 +8,7 @@ import com.nguyen.mealz.model.network.Category
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CategoryViewModel(private val repository: MealRepository = MealRepository()) : ViewModel() {
+class CategoriesViewModel() : ViewModel() {
     val meals = mutableStateOf(listOf<Category>())
 
     init {
@@ -19,6 +19,6 @@ class CategoryViewModel(private val repository: MealRepository = MealRepository(
     }
 
     private suspend fun getMeals(): List<Category> {
-        return repository.getMeals().categories
+        return MealRepository.getMeals().categories
     }
 }

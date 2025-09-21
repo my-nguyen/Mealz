@@ -29,27 +29,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.nguyen.mealz.model.network.Category
-import com.nguyen.mealz.ui.theme.MealzTheme
 
 @Composable
-fun CategoriesScreen() {
-    val viewModel: CategoryViewModel = viewModel()
+fun CategoriesScreen(callback: (String) -> Unit) {
+    val viewModel: CategoriesViewModel = viewModel()
     val meals = viewModel.meals.value
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         items(meals) {
-            Category(it)
+            Category(it, callback)
         }
     }
 }
 
 @Composable
-fun Category(meal: Category) {
+fun Category(meal: Category, callback: (String) -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -57,6 +55,7 @@ fun Category(meal: Category) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable { callback(meal.id) }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
             AsyncImage(
@@ -95,13 +94,5 @@ fun Category(meal: Category) {
                     .clickable { isExpanded = !isExpanded }
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MealzTheme {
-        CategoriesScreen()
     }
 }
